@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  glusterfs:
+    image: lulceltech/gluster:latest
+    ports:
+      - target: 24007 # Gluster Daemon
+        published: 24007
+        protocol: tcp
+        mode: host
+      - target: 24008 # Management
+        published: 24008
+        protocol: tcp
+        mode: host
+      - target: 49152 # 49152 - 4915* are brick ports, 1 port per brick
+        published: 49152
+        protocol: tcp
+        mode: host
+      - target: 49153
+        published: 49153
+        protocol: tcp
+        mode: host
+      - target: 49154
+        published: 49154
+        protocol: tcp
+        mode: host
+      - target: 49155
+        published: 49155
+        protocol: tcp
+        mode: host
+    deploy:
+      mode: global
+      labels:
+        - "service_type=glusterfs"
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+    volumes:
+      - glusterfs-data:/gluster
+
+volumes:
+  glusterfs-data:
+
+networks:
+  glusterfs-network:
+    name: glusterfs-network
+    driver: overlay

@@ -8,6 +8,6 @@ gluster peer probe gluster-1
 gluster peer probe gluster-2
 gluster peer probe gluster-3
 
-tail /var/log/glusterfs/glusterd.log &
+tail -f /var/log/glusterfs/glusterd.log &
 
 exec "$@"

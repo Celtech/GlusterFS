@@ -40,7 +40,7 @@ services:
         max_attempts: 3
         window: 120s
     volumes:
-      - glusterfs-data:/gluster
+      - glusterfs-data:/gluster/bricks/{{.Task.Slot}}
 
 volumes:
   glusterfs-data:

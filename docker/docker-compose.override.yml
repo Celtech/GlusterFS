@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  glusterfs:
+    container_name: glusterfs
+    build:
+      dockerfile: "./Dockerfile"
+      context: .
+    volumes:
+      - glusterfs-data:/gluster
+
+volumes:
+  glusterfs-data:
+
+networks:
+  glusterfs-network:
+    name: glusterfs-network
+    driver: bridge

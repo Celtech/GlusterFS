@@ -29,7 +29,6 @@ services:
         mode: host
     environment:
       TASK_ID: "{{.Task.Slot}}"
-      TASK_ROLE: "{{.Node.Role}}"
     deploy:
       mode: global
       labels:

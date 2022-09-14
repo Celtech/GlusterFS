@@ -29,6 +29,10 @@ services:
         mode: host
     environment:
       TASK_ID: "{{.Task.Slot}}"
+    extra_hosts:
+      - "gluster-1:204.48.26.91"
+      - "gluster-2:142.93.249.201"
+      - "gluster-3:142.93.203.254"
     deploy:
       mode: global
       labels:

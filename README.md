@@ -17,9 +17,9 @@ aixzyaylgdmpr87huk778vf6l     gluster03    Ready     Active                     
 Furthermore, we will assume you have one domain name set up per node that match the hostname of
 the node(more on this in the section below). For our example we will use:
 
-- gluster01.chgovr.me
-- gluster02.chgovr.me
-- gluster03.chgovr.me
+- `gluster01.chgovr.me`
+- `gluster02.chgovr.me`
+- `gluster03.chgovr.me`
 
 > 💡 **Important:** Your subdomain names **MUST** match the hostnames of your nodes. 
 

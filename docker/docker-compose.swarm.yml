@@ -2,6 +2,7 @@ version: '3.8'
 services:
   glusterfs:
     image: lulceltech/gluster:latest
+    hostname: "{{.Node.Hostname}}.chgovr.me" # modify the top level domain to your domain, DO NOT TOUCH {{.Node.Hostname}}
     ports:
       - target: 24007 # Gluster Daemon
         published: 24007
@@ -11,30 +12,19 @@ services:
         published: 24008
         protocol: tcp
         mode: host
-      - target: 49152 # 49152 - 4915* are brick ports, 1 port per brick
+      - target: 49152 # 49152 - 4915* are volume ports, 1 port per volume, add more as needed
         published: 49152
         protocol: tcp
         mode: host
-      - target: 49153
-        published: 49153
-        protocol: tcp
-        mode: host
-      - target: 49154
-        published: 49154
-        protocol: tcp
-        mode: host
-      - target: 49155
-        published: 49155
-        protocol: tcp
-        mode: host
     environment:
-      TASK_ID: "{{.Task.Slot}}"
-    extra_hosts:
-      - "gluster-1:204.48.26.91"
-      - "gluster-2:142.93.249.201"
-      - "gluster-3:142.93.203.254"
+      HOST_NAME: "{{.Node.Hostname}}"
+    networks:
+      - glusterfs-network
+    cap_add: # Very important, without this we cannot create volumes
+      - ALL
     deploy:
       mode: global
+      endpoint_mode: dnsrr
       labels:
         - "service_type=glusterfs"
       update_config:
@@ -46,10 +36,16 @@ services:
         max_attempts: 3
         window: 120s
     volumes:
-      - glusterfs-data:/gluster/bricks/{{.Task.Slot}}
+      - /data:/gluster/bricks/{{.Task.Slot}}
+      - glusterfs-var-lib:/var/lib/glusterd
+      - glusterfs-etc:/etc/glusterfs
+      - glusterfs-cgroup:/sys/fs/cgroup
 
 volumes:
-  glusterfs-data:
+  glusterfs-var-run:
+  glusterfs-var-lib:
+  glusterfs-etc:
+  glusterfs-cgroup:
 
 networks:
   glusterfs-network:

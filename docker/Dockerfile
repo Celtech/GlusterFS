@@ -1,5 +1,5 @@
 FROM ubuntu:20.04 AS ubuntu
-RUN apt-get -y update && apt-get -y upgrade && \
+RUN apt-get -y update && \
     apt install -y software-properties-common && \
     add-apt-repository ppa:gluster/glusterfs-7 && \
     apt-get -y update && \

@@ -1,6 +1,0 @@
-version: '3.8'
-services:
-  glusterfs:
-    image: git.rykelabs.com:5050/rykelabs/glusterfs/glusterfs:latest
-    networks:
-      - glusterfs-network

@@ -1,8 +1,8 @@
 version: '3.8'
 services:
   glusterfs:
-    image: git.rykelabs.com:5050/rykelabs/docker-glusterfs/docker-glusterfs:latest
-    hostname: "{{.Node.Hostname}}.chargeover.com" # modify the top level domain to your domain, DO NOT TOUCH {{.Node.Hostname}}
+    image: lulceltech/gluster:latest
+    hostname: "{{.Node.Hostname}}.chgovr.me" # modify the top level domain to your domain, DO NOT TOUCH {{.Node.Hostname}}
     ports:
       - target: 24007 # Gluster Daemon
         published: 24007
